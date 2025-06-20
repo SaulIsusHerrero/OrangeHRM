@@ -39,7 +39,7 @@ public class Correct_Login_Test {
     }
 
     /**
-    * Login in the web.
+    * Login in the web with correct user and password.
     */
     @Test(dataProvider = "loginData")
     public void Correct_Login_Test(

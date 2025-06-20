@@ -15,7 +15,7 @@ public class CSVDataProvider {
     private static final String DATA_DIR = Paths.get("resources").toString();
 
     public static Object[][] readDatosLogin() {
-        return readCSVFile("datos_login.csv");
+        return readCSVFile("datos_login_correctos.csv");
     }
 
     private static Object[][] readCSVFile(String filename) {
