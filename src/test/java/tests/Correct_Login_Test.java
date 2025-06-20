@@ -17,7 +17,7 @@ import java.util.Date;
 
 import static pages.BasePage.TIMEOUT;
 
-public class Login_Test {
+public class Correct_Login_Test {
 
     private WebDriver webDriver;
     private Steps steps;
@@ -42,7 +42,7 @@ public class Login_Test {
     * Login in the web.
     */
     @Test(dataProvider = "loginData")
-    public void Login_Test(
+    public void Correct_Login_Test(
             String Username,
             String password){
         steps.performLogin(Username, password);
