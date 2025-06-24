@@ -1,13 +1,19 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
-public class LoginPage extends BasePage{
+public class LoginPage extends BasePage {
     //Locators
     private By userNameLocator = By.xpath("//input[@name='username']");
     private By passwordLocator = By.xpath("//input[@name='password']");
-    private By clickLoginButton = By.xpath("//button[normalize-space()='Login']");
+    private By clickLoginLocator = By.xpath("//button[normalize-space()='Login']");
+    private By InvalidCredentialsLocator = By.xpath("//p[@class='oxd-text oxd-text--p oxd-alert-content-text']");
 
 
     public LoginPage(WebDriver webDriver) {
@@ -15,8 +21,10 @@ public class LoginPage extends BasePage{
     }
 
     //Métodos
+
     /**
      * type the userName in the textbox on the Login page.
+     *
      * @param userName as a string
      */
     public void writeUserNameField(String userName) {
@@ -26,6 +34,7 @@ public class LoginPage extends BasePage{
 
     /**
      * type the password in the textbox on the Login page.
+     *
      * @param password as a string
      */
     public void writePasswordField(String password) {
@@ -34,12 +43,26 @@ public class LoginPage extends BasePage{
     }
 
     /**
-     * click in login button
+     * Clicks login and espera que el login sea exitoso
      */
-    public void clickLogin() {
-        waitUntilElementIsDisplayed(clickLoginButton, TIMEOUT);
-        scrollElementIntoView(clickLoginButton);
-        clickElement(clickLoginButton);
+    public void clickLoginExpectSuccess() {
+        waitUntilElementIsDisplayed(clickLoginLocator, TIMEOUT);
+        scrollElementIntoView(clickLoginLocator);
+        clickElement(clickLoginLocator);
+    }
+
+    /**
+     * Clicks login y espera que el login falle
+     */
+    public void clickLoginExpectFailure() {
+        waitUntilElementIsDisplayed(clickLoginLocator, TIMEOUT);
+        scrollElementIntoView(clickLoginLocator);
+        clickElement(clickLoginLocator);
+
+        // Esperar que aparezca el toast de error
+        WebDriverWait wait = new WebDriverWait(webDriver, TIMEOUT);
+        WebElement toastError = wait.until(ExpectedConditions.visibilityOfElementLocated(InvalidCredentialsLocator));
+        Assert.assertTrue(toastError.isDisplayed(), "No se mostró el mensaje de error aunque las credenciales eran inválidas");
     }
 
 }

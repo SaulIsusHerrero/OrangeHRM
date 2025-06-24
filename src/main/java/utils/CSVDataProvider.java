@@ -14,8 +14,16 @@ import java.util.stream.Collectors;
 public class CSVDataProvider {
     private static final String DATA_DIR = Paths.get("resources").toString();
 
-    public static Object[][] readDatosLogin() {
+    public static Object[][] readDataLogin() {
         return readCSVFile("datos_login_correctos.csv");
+    }
+
+    public static Object[][] readDataLoginWrongUserName() {
+        return readCSVFile("datos_login_wrong_userName.csv");
+    }
+
+    public static Object[][] readDataLoginWrongPassword() {
+        return readCSVFile("datos_login_wrong_password.csv");
     }
 
     private static Object[][] readCSVFile(String filename) {

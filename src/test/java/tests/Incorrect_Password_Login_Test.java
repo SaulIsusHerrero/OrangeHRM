@@ -18,14 +18,14 @@ import java.util.Date;
 
 import static pages.BasePage.TIMEOUT;
 
-public class Correct_Login_Test {
+public class Incorrect_Password_Login_Test {
 
     private WebDriver webDriver;
     private Steps steps;
 
     @DataProvider(name = "loginData")
     public Object[][] getLoginData() {
-        return CSVDataProvider.readDataLogin();
+        return CSVDataProvider.readDataLoginWrongPassword();
     }
 
     @BeforeMethod
@@ -40,16 +40,14 @@ public class Correct_Login_Test {
     }
 
     /**
-    * Login in the web with correct user and password.
+    * Login in the web with correct an incorrect password and a correct user name.
     */
     @Test(dataProvider = "loginData")
-    public void Correct_Login_Test(
+    public void Incorrect_Password_Login_Test(
             String Username,
             String password){
-        TemporaryDataStore.getInstance().set("testCase", "Correct_Login_Test");
-        // Bloques reutilizables (steps)
+        TemporaryDataStore.getInstance().set("testCase", "Incorrect_Password_Login_Test");
         steps.performLogin(Username, password);
-        steps.perfomHomePage();
     }
 
     @AfterMethod

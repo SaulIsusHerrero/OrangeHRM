@@ -24,7 +24,16 @@ public class Steps extends BasePage {
         LoginPage loginPage = new LoginPage(webDriver);
         loginPage.writeUserNameField(userName);
         loginPage.writePasswordField(password);
-        loginPage.clickLogin();
+
+        // Verificar usando la clave "testCase" si el login fue correcto o no
+        String testCase = (String) TemporaryDataStore.getInstance().get("testCase");
+        if ("Incorrect_Password_Login_Test".equalsIgnoreCase(testCase)) {
+            loginPage.clickLoginExpectFailure();
+        } else if ("Incorrect_User_Login_Test".equalsIgnoreCase(testCase)) {
+            loginPage.clickLoginExpectFailure();
+        } else {
+            loginPage.clickLoginExpectSuccess();
+        }
     }
 
     /**
