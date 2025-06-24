@@ -26,6 +26,14 @@ public class CSVDataProvider {
         return readCSVFile("datos_login_wrong_password.csv");
     }
 
+    public static Object[][] readDataLoginBlankUserName() {
+        return readCSVFile("datos_login_blank_userName.csv");
+    }
+
+    public static Object[][] readDataLoginBlankPassword() {
+        return readCSVFile("datos_login_blank_password.csv");
+    }
+
     private static Object[][] readCSVFile(String filename) {
         Path filePath = Paths.get(DATA_DIR, filename);
 

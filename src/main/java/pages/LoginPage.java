@@ -14,6 +14,8 @@ public class LoginPage extends BasePage {
     private By passwordLocator = By.xpath("//input[@name='password']");
     private By clickLoginLocator = By.xpath("//button[normalize-space()='Login']");
     private By InvalidCredentialsLocator = By.xpath("//p[@class='oxd-text oxd-text--p oxd-alert-content-text']");
+    private By EmptyUserNameTextFieldLocator = By.xpath("//span[contains(@class, 'oxd-input-field-error-message') and text()='Required']");
+    private By EmptyPasswordTextFieldLocator = By.xpath("//span[contains(@class, 'oxd-text oxd-text--span oxd-input-field-error-message oxd-input-group__message') and text()='Required']");
 
 
     public LoginPage(WebDriver webDriver) {
@@ -39,16 +41,21 @@ public class LoginPage extends BasePage {
      */
     public void writePasswordField(String password) {
         waitUntilElementIsDisplayed(passwordLocator, TIMEOUT);
-        setElementText(passwordLocator, password);
+        setElementText(userNameLocator, password);
     }
 
     /**
      * Clicks login and espera que el login sea exitoso
      */
-    public void clickLoginExpectSuccess() {
+    public void clickLogin() {
         waitUntilElementIsDisplayed(clickLoginLocator, TIMEOUT);
         scrollElementIntoView(clickLoginLocator);
         clickElement(clickLoginLocator);
+        WebElement emptyUserName = webDriver.findElement(EmptyUserNameTextFieldLocator);
+        WebElement emptyPassword = webDriver.findElement(EmptyPasswordTextFieldLocator);
+        Assert.assertTrue(emptyUserName.isDisplayed());
+        Assert.assertTrue(emptyPassword.isDisplayed());
+        System.out.println("Las credenciales NO estan rellenadas");
     }
 
     /**

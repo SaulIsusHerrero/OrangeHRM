@@ -19,6 +19,6 @@ public class HomePage extends BasePage{
     public void verifyYouAreInHomePage() {
         waitUntilElementIsDisplayed(userNameLocator, TIMEOUT);
         Boolean youAreInHomePage = webDriver.findElement(userNameLocator).isDisplayed();
-        Assert.assertTrue(youAreInHomePage);
+        Assert.assertTrue(youAreInHomePage, "No te encuentras en la Home Page");
     }
 }

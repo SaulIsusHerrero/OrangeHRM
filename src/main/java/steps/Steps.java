@@ -32,7 +32,7 @@ public class Steps extends BasePage {
         } else if ("Incorrect_User_Login_Test".equalsIgnoreCase(testCase)) {
             loginPage.clickLoginExpectFailure();
         } else {
-            loginPage.clickLoginExpectSuccess();
+            loginPage.clickLogin();
         }
     }
 
