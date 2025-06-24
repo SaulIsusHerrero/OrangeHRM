@@ -43,7 +43,7 @@ public class Blank_User_Login_Test {
     * Login in the web without data in userName textfield and correct password.
     */
     @Test(dataProvider = "loginData")
-    public void Correct_Login_Test(
+    public void Blank_User_Login_Test(
             String Username,
             String password){
         TemporaryDataStore.getInstance().set("testCase", "Blank_User_Login_Test");
