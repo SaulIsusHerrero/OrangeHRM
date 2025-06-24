@@ -25,14 +25,25 @@ public class Steps extends BasePage {
         loginPage.writeUserNameField(userName);
         loginPage.writePasswordField(password);
 
-        // Verificar usando la clave "testCase" si el login fue correcto o no
-        String testCase = (String) TemporaryDataStore.getInstance().get("testCase");
-        if ("Incorrect_Password_Login_Test".equalsIgnoreCase(testCase)) {
-            loginPage.clickLoginExpectFailure();
-        } else if ("Incorrect_User_Login_Test".equalsIgnoreCase(testCase)) {
-            loginPage.clickLoginExpectFailure();
-        } else {
-            loginPage.clickLogin();
+        String testCase = String.valueOf(TemporaryDataStore.getInstance().get("testCase"));
+
+        switch (testCase.toLowerCase()) {
+            case "incorrect_password_login_test":
+            case "incorrect_user_login_test":
+                loginPage.clickLoginExpectFailureData();
+                break;
+
+            case "blank_password_login_test":
+            case "blank_user_login_test":
+                loginPage.clickLoginExpectEmptyData();
+                break;
+
+            case "correct_login_test":
+                loginPage.clickLoginSuccessful();
+                break;
+
+            default:
+                throw new IllegalArgumentException("🚫 TestCase no reconocido: " + testCase);
         }
     }
 

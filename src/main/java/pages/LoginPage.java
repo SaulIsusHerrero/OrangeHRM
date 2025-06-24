@@ -1,7 +1,6 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -41,27 +40,22 @@ public class LoginPage extends BasePage {
      */
     public void writePasswordField(String password) {
         waitUntilElementIsDisplayed(passwordLocator, TIMEOUT);
-        setElementText(userNameLocator, password);
+        setElementText(passwordLocator, password);
     }
 
     /**
      * Clicks login and espera que el login sea exitoso
      */
-    public void clickLogin() {
+    public void clickLoginSuccessful() {
         waitUntilElementIsDisplayed(clickLoginLocator, TIMEOUT);
         scrollElementIntoView(clickLoginLocator);
         clickElement(clickLoginLocator);
-        WebElement emptyUserName = webDriver.findElement(EmptyUserNameTextFieldLocator);
-        WebElement emptyPassword = webDriver.findElement(EmptyPasswordTextFieldLocator);
-        Assert.assertTrue(emptyUserName.isDisplayed());
-        Assert.assertTrue(emptyPassword.isDisplayed());
-        System.out.println("Las credenciales NO estan rellenadas");
     }
 
     /**
-     * Clicks login y espera que el login falle
+     * Clicks login y espera que el login falle por credenciales erróneas
      */
-    public void clickLoginExpectFailure() {
+    public void clickLoginExpectFailureData() {
         waitUntilElementIsDisplayed(clickLoginLocator, TIMEOUT);
         scrollElementIntoView(clickLoginLocator);
         clickElement(clickLoginLocator);
@@ -70,6 +64,23 @@ public class LoginPage extends BasePage {
         WebDriverWait wait = new WebDriverWait(webDriver, TIMEOUT);
         WebElement toastError = wait.until(ExpectedConditions.visibilityOfElementLocated(InvalidCredentialsLocator));
         Assert.assertTrue(toastError.isDisplayed(), "No se mostró el mensaje de error aunque las credenciales eran inválidas");
+    }
+
+    /**
+     * Clicks login y espera que el login falle por falta de alguna credencial
+     */
+    public void clickLoginExpectEmptyData() {
+        waitUntilElementIsDisplayed(clickLoginLocator, TIMEOUT);
+        scrollElementIntoView(clickLoginLocator);
+        clickElement(clickLoginLocator);
+
+        // Esperar que aparezca el error de campo Required
+        WebDriverWait wait = new WebDriverWait(webDriver, TIMEOUT);
+        WebElement requiredUsernameError = wait.until(ExpectedConditions.visibilityOfElementLocated(EmptyUserNameTextFieldLocator));
+        WebElement requiredPasswordError = wait.until(ExpectedConditions.visibilityOfElementLocated(EmptyPasswordTextFieldLocator));
+        Assert.assertTrue(requiredUsernameError.isDisplayed(), "No se accedió a la Home Page ya que falta el Username");
+        Assert.assertTrue(requiredPasswordError.isDisplayed(), "No se accedió a la Home Page ya que falta el Password");
+
     }
 
 }
