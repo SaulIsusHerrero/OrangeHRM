@@ -49,6 +49,7 @@ public class Blank_User_Login_Test {
         TemporaryDataStore.getInstance().set("testCase", "Blank_User_Login_Test");
         // Bloques reutilizables (steps)
         steps.performLogin(Username, password);
+        steps.perfomHomePage();
     }
 
     @AfterMethod

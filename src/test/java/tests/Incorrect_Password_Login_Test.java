@@ -48,6 +48,7 @@ public class Incorrect_Password_Login_Test {
             String password){
         TemporaryDataStore.getInstance().set("testCase", "Incorrect_Password_Login_Test");
         steps.performLogin(Username, password);
+        steps.perfomHomePage();
     }
 
     @AfterMethod

@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -81,6 +82,11 @@ public class LoginPage extends BasePage {
         Assert.assertTrue(requiredUsernameError.isDisplayed(), "No se accedió a la Home Page ya que falta el Username");
         Assert.assertTrue(requiredPasswordError.isDisplayed(), "No se accedió a la Home Page ya que falta el Password");
 
+        // Verificación de color rojo en el mensaje de error de username
+        String color = requiredUsernameError.getCssValue("color");
+        Color actual = Color.fromString(color);
+        Color esperado = Color.fromString("#eb0910");
+        Assert.assertEquals(actual, esperado, "El color del mensaje de error debería ser rojo");
     }
 
 }
