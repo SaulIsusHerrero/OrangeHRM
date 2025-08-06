@@ -6,7 +6,7 @@ import org.testng.Assert;
 
 public class HomePage extends BasePage{
     //Locators
-    private By userNameLocator = By.xpath("//p[contains(@class, 'oxd-userdropdown-name')]");
+    private By userNameLocator = By.cssSelector("input[name='username']");
 
     public HomePage(WebDriver webDriver) {
         super(webDriver);

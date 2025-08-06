@@ -10,8 +10,8 @@ import org.testng.Assert;
 
 public class LoginPage extends BasePage {
     //Locators
-    private By userNameLocator = By.xpath("//input[@name='username']");
-    private By passwordLocator = By.xpath("//input[@name='password']");
+    private By userNameLocator = By.cssSelector("input[name='username']");
+    private By passwordLocator = By.cssSelector("input[name='password']");
     private By clickLoginLocator = By.xpath("//button[normalize-space()='Login']");
     private By InvalidCredentialsLocator = By.xpath("//p[@class='oxd-text oxd-text--p oxd-alert-content-text']");
     private By EmptyUserNameTextFieldLocator = By.xpath("//span[contains(@class, 'oxd-input-field-error-message') and text()='Required']");
@@ -72,7 +72,6 @@ public class LoginPage extends BasePage {
      */
     public void clickLoginExpectEmptyData() {
         waitUntilElementIsDisplayed(clickLoginLocator, TIMEOUT);
-        scrollElementIntoView(clickLoginLocator);
         clickElement(clickLoginLocator);
 
         // Esperar que aparezca el error de campo Required

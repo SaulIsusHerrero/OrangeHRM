@@ -1,0 +1,7 @@
+utils\TemporaryDataStore.class
+pages\BasePage.class
+utils\CSVDataProvider.class
+pages\LoginPage.class
+pages\HomePage.class
+steps\Steps.class
+utils\DriverManager.class
