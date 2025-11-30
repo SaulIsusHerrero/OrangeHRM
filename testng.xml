@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Orange_HRM_Test_Suite" parallel="tests" thread-count="3">
+    <test name="BrowserTests">
+        <classes>
+            <class name="tests.TestFactory"/>
+        </classes>
+    </test>
+</suite>

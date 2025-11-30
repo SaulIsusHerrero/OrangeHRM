@@ -41,16 +41,6 @@ public class BasePage {
     }
 
     /**
-     * Returns "true" or "false" depending on if a given element locator is currently selected or unselected.
-     * Normally used to interact with checkboxes or radio buttons.
-     *
-     * @param inputLocator By with the input locator of the element.
-     */
-    public boolean isElementSelected(By inputLocator) {
-        return webDriver.findElement(inputLocator).isSelected();
-    }
-
-    /**
      * Scrolls a given element locator to the center of the screen.
      *
      * @param locator By with the locator of the element.
@@ -59,31 +49,6 @@ public class BasePage {
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
         javascriptExecutor.executeScript("arguments[0].scrollIntoView({block: 'center'});",
                 webDriver.findElement(locator));
-    }
-
-    /**
-     * Scrolls a given element locator to the center of the screen.
-     *
-     * @param element WebElement
-     */
-    public void scrollElementIntoViewElement(WebElement element) {
-        ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView({block: 'center'});", element);
-    }
-
-    /**
-     * Marks a given element locator as selected or unselected.
-     * Normally used to interact with checkboxes or radio buttons.
-     *
-     * @param inputLocator     By with the input locator of the element
-     * @param labelLocator     By with the label locator of the element
-     * @param expectedSelected boolean with the expected selected state of the element
-     */
-    public void setElementSelected(By inputLocator, By labelLocator, boolean expectedSelected) {
-        boolean actualSelected = isElementSelected(inputLocator);
-        if (actualSelected != expectedSelected) {
-            scrollElementIntoView(labelLocator);
-            clickElement(labelLocator);
-        }
     }
 
     /**
@@ -97,27 +62,10 @@ public class BasePage {
     }
 
     /**
-     * Normaliza el formato del precio para asegurar que usa coma como separador decimal
-     * y siempre tenga dos decimales.
-     * @param priceText Texto del precio (ej: "66.5€", "66,50€" o "54€")
-     * @return Precio normalizado (ej: "66,50€" o "54,00€")
+     * Utility method to check if an element is present in the DOM.
      */
-    public String normalizePrice(String priceText) {
-        // Limpiar el texto: eliminar espacios y caracteres no numéricos excepto , . y €
-        String cleaned = priceText.trim()
-                .replaceAll("\\s+", "")
-                .replace(".", ",");
-
-        // Verificar si ya tiene decimales
-        if (cleaned.contains(",")) {
-            // Asegurar dos decimales después de la coma
-            cleaned = cleaned.replaceAll(",(\\d)€", ",$10€")
-                    .replaceAll(",(\\d{2})€", ",$1€");
-        } else {
-            // No tiene decimales, añadir ,00
-            cleaned = cleaned.replace("€", ",00€");
-        }
-
-        return cleaned;
+    boolean isElementPresent(By locator) {
+        return !webDriver.findElements(locator).isEmpty();
     }
+
 }
