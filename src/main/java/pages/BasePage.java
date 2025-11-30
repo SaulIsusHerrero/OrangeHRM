@@ -61,4 +61,11 @@ public class BasePage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+    /**
+     * Utility method to check if an element is present in the DOM.
+     */
+    boolean isElementPresent(By locator) {
+        return !webDriver.findElements(locator).isEmpty();
+    }
+
 }

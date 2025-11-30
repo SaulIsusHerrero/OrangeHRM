@@ -22,6 +22,12 @@ public class Incorrect_User_Login_Test {
 
     private WebDriver webDriver;
     private Steps steps;
+    private String browser;
+
+    // ✅ Constructor added for browser injection
+    public Incorrect_User_Login_Test(String browser) {
+        this.browser = browser;
+    }
 
     @DataProvider(name = "loginData")
     public Object[][] getLoginData() {
@@ -34,13 +40,13 @@ public class Incorrect_User_Login_Test {
         webDriver = DriverManager.getDriver(browser);
         webDriver.manage().timeouts().implicitlyWait(TIMEOUT);
         webDriver.manage().window().maximize();
-        webDriver.get("https://opensource-demo.orangehrmlive.com/web/index.php/performance/searchEvaluatePerformanceReview");
+        webDriver.get("https://saul1-trials719.orangehrmlive.com/auth/seamlessLogin");
 
         steps = new Steps(webDriver);
     }
 
     /**
-    * Login in the web with correct an incorrect user name and correct password.
+    * Login in the web with correct an incorrect username and correct password.
     */
     @Test(dataProvider = "loginData")
     public void Incorrect_User_Login_Test(
@@ -52,7 +58,7 @@ public class Incorrect_User_Login_Test {
     }
 
     @AfterMethod
-    public void capturarPantallaSiFalla(ITestResult result) throws IOException {
+    public void screnshootIfFails(ITestResult result) throws IOException {
         System.out.println("🧪 Estado del test: " + result.getStatus() + " (" + result.getName() + ")");
 
         if (result.getStatus() == ITestResult.FAILURE && webDriver != null) {
@@ -68,10 +74,7 @@ public class Incorrect_User_Login_Test {
             Files.copy(screenshot.toPath(), destino.toPath());
             System.out.println("📸 Captura guardada en: " + destino.getAbsolutePath());
         }
-
-        if (webDriver != null) {
-            webDriver.quit();
-        }
+        DriverManager.quitDriver();
     }
 
 }

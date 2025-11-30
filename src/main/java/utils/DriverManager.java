@@ -2,40 +2,49 @@ package utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import java.util.Locale;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class DriverManager {
+    private static WebDriver driver;
 
     public static WebDriver getDriver(String browser) {
-        String os = System.getProperty("os.name").toLowerCase(Locale.ROOT);
-        String driverPathPrefix;
+        if (driver == null) {
+            switch (browser.toLowerCase()) {
+                case "firefox":
+                    WebDriverManager.firefoxdriver().setup();
+                    FirefoxOptions firefoxOptions = new FirefoxOptions();
+                    firefoxOptions.addArguments("-private"); // Private mode
+                    driver = new FirefoxDriver(firefoxOptions);
+                    break;
 
-        if (os.contains("win")) {
-            driverPathPrefix = "drivers/windows/";
-        } else if (os.contains("mac")) {
-            driverPathPrefix = "drivers/mac/";
-        } else {
-            driverPathPrefix = "drivers/linux/";
+                case "edge":
+                    WebDriverManager.edgedriver().setup();
+                    EdgeOptions edgeOptions = new EdgeOptions();
+                    edgeOptions.addArguments("-inprivate"); // InPrivate mode
+                    driver = new EdgeDriver(edgeOptions);
+                    break;
+
+                case "chrome":
+                default:
+                    WebDriverManager.chromedriver().setup();
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    chromeOptions.addArguments("--incognito"); // Incognito mode
+                    driver = new ChromeDriver(chromeOptions);
+                    break;
+            }
         }
+        return driver;
+    }
 
-        switch (browser.toLowerCase(Locale.ROOT)) {
-            case "chrome":
-                System.setProperty("webdriver.chrome.driver",
-                        driverPathPrefix + (os.contains("win") ? "chromedriver.exe" : "chromedriver"));
-                return new ChromeDriver();
-            case "firefox":
-                System.setProperty("webdriver.gecko.driver",
-                        driverPathPrefix + (os.contains("win") ? "geckodriver.exe" : "geckodriver"));
-                return new FirefoxDriver();
-            case "edge":
-                System.setProperty("webdriver.edge.driver",
-                        driverPathPrefix + (os.contains("win") ? "msedgedriver.exe" : "msedgedriver"));
-                return new EdgeDriver();
-            default:
-                throw new IllegalArgumentException("Unsupported browser: " + browser);
+    public static void quitDriver() {
+        if (driver != null) {
+            driver.quit();
+            driver = null;
         }
     }
 }
-

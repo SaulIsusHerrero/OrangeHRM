@@ -43,7 +43,7 @@ public class Steps extends BasePage {
                 break;
 
             default:
-                throw new IllegalArgumentException("🚫 TestCase no reconocido: " + testCase);
+                throw new IllegalArgumentException("🚫 TestCase does not recognize: " + testCase);
         }
     }
 

@@ -15,53 +15,53 @@ public class CSVDataProvider {
     private static final String DATA_DIR = Paths.get("resources").toString();
 
     public static Object[][] readDataLogin() {
-        return readCSVFile("datos_login_correctos.csv");
+        return readCSVFile("data_login_correct.csv");
     }
 
     public static Object[][] readDataLoginWrongUserName() {
-        return readCSVFile("datos_login_wrong_userName.csv");
+        return readCSVFile("data_login_wrong_userName.csv");
     }
 
     public static Object[][] readDataLoginWrongPassword() {
-        return readCSVFile("datos_login_wrong_password.csv");
+        return readCSVFile("data_login_wrong_password.csv");
     }
 
     public static Object[][] readDataLoginBlankUserName() {
-        return readCSVFile("datos_login_blank_userName.csv");
+        return readCSVFile("data_login_blank_userName.csv");
     }
 
     public static Object[][] readDataLoginBlankPassword() {
-        return readCSVFile("datos_login_blank_password.csv");
+        return readCSVFile("data_login_blank_password.csv");
     }
 
     private static Object[][] readCSVFile(String filename) {
         Path filePath = Paths.get(DATA_DIR, filename);
 
-        // Verificar que el archivo existe
+        // Verify the file exists.
         if (!Files.exists(filePath)) {
-            throw new RuntimeException("Archivo no encontrado: " + filePath);
+            throw new RuntimeException("File didn´t found: " + filePath);
         }
 
-        // Verificar que no esté vacío
+        // Verify is not empty
         try {
             if (Files.size(filePath) == 0) {
-                throw new RuntimeException("Archivo vacío: " + filePath);
+                throw new RuntimeException("Empty file: " + filePath);
             }
         } catch (IOException e) {
-            throw new RuntimeException("Error verificando tamaño del archivo: " + filePath, e);
+            throw new RuntimeException("Error verifying file size: " + filePath, e);
         }
 
         try (CSVReader reader = new CSVReader(new FileReader(filePath.toFile()))) {
             List<String[]> allData = reader.readAll()
                     .stream()
-                    .filter(row -> !Arrays.stream(row).allMatch(String::isEmpty)) // Filtrar filas vacías
+                    .filter(row -> !Arrays.stream(row).allMatch(String::isEmpty)) // Filter empty rows.
                     .collect(Collectors.toList());
 
             if (allData.isEmpty()) {
-                throw new RuntimeException("No hay datos válidos en el archivo CSV: " + filePath);
+                throw new RuntimeException("There is not valid data in .CSV file: " + filePath);
             }
 
-            // Determinar si hay encabezados (asumimos que la primera fila es encabezado si contiene texto)
+            // Determine if there are headers (we assume that the first row is a header if contains text).
             boolean hasHeader = Arrays.stream(allData.get(0))
                     .anyMatch(cell -> cell != null && !cell.trim().isEmpty() && cell.matches(".*[a-zA-Z].*"));
 
@@ -69,10 +69,10 @@ public class CSVDataProvider {
             int rowCount = allData.size() - startRow;
 
             if (rowCount == 0) {
-                throw new RuntimeException("Solo hay encabezados en el archivo CSV: " + filePath);
+                throw new RuntimeException("Only there are headers in the .CSV file: " + filePath);
             }
 
-            // Convertir a array bidimensional
+            // Convert to a bidimensional array.
             Object[][] testData = new Object[rowCount][];
             for (int i = startRow; i < allData.size(); i++) {
                 testData[i - startRow] = allData.get(i);
@@ -81,7 +81,7 @@ public class CSVDataProvider {
             return testData;
 
         } catch (IOException | CsvException e) {
-            throw new RuntimeException("Error leyendo archivo CSV: " + filePath, e);
+            throw new RuntimeException("Error reading .CSV file: " + filePath, e);
         }
     }
 }

@@ -1,46 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite de Pruebas OrangeHRM" parallel="tests" thread-count="5">
-
-    <!-- Configuración predeterminada (Chrome) que se ejecutará siempre -->
-    <test name="Default_Chrome_Execution">
-        <parameter name="browser" value="chrome"/>
+<suite name="Orange_HRM_Test_Suite" parallel="tests" thread-count="3">
+    <test name="BrowserTests">
         <classes>
-            <class name="tests.Correct_Login_Test"/>
-            <class name="tests.Incorrect_Password_Login_Test"/>
-            <class name="tests.Incorrect_User_Login_Test"/>
-            <class name="tests.Blank_Password_Login_Test"/>
-            <class name="tests.Blank_User_Login_Test"/>
-        </classes>
-    </test>
-    <!-- Configuraciones alternativas para otros navegadores -->
-    <test name="Chrome_Execution" enabled="false">
-        <parameter name="browser" value="chrome"/>
-        <classes>
-            <class name="tests.Correct_Login_Test"/>
-            <class name="tests.Incorrect_Password_Login_Test"/>
-            <class name="tests.Incorrect_User_Login_Test"/>
-            <class name="tests.Blank_Password_Login_Test"/>
-            <class name="tests.Blank_User_Login_Test"/>
-        </classes>
-    </test>
-    <test name="Firefox_Execution" enabled="false">
-        <parameter name="browser" value="firefox"/>
-        <classes>
-            <class name="tests.Correct_Login_Test"/>
-            <class name="tests.Incorrect_Password_Login_Test"/>
-            <class name="tests.Incorrect_User_Login_Test"/>
-            <class name="tests.Blank_Password_Login_Test"/>
-            <class name="tests.Blank_User_Login_Test"/>
-        </classes>
-    </test>
-    <test name="Edge_Execution" enabled="false">
-        <parameter name="browser" value="edge"/>
-        <classes>
-            <class name="tests.Correct_Login_Test"/>
-            <class name="tests.Incorrect_Password_Login_Test"/>
-            <class name="tests.Incorrect_User_Login_Test"/>
-            <class name="tests.Blank_Password_Login_Test"/>
-            <class name="tests.Blank_User_Login_Test"/>
+            <class name="tests.TestFactory"/>
         </classes>
     </test>
 </suite>
