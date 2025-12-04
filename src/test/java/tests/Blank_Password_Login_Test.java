@@ -46,10 +46,10 @@ public class Blank_Password_Login_Test {
     * Login on the web without data in password text field and correct username
     */
     @Test(dataProvider = "loginData")
-    public void Blank_Password_Login_Test(String Username, String password){
+    public void Blank_Password_Login_Test(String userName, String password){
         TemporaryDataStore.getInstance().set("testCase", "Blank_Password_Login_Test");
         // Reusable blocks (steps)
-        steps.performLogin(Username, password);
+        steps.performLogin(userName, password);
         steps.perfomHomePage();
     }
 
@@ -68,7 +68,9 @@ public class Blank_Password_Login_Test {
             Files.copy(screenshot.toPath(), destino.toPath());
             System.out.println("📸 Captura guardada en: " + destino.getAbsolutePath());
         }
-        DriverManager.quitDriver();
+        if (webDriver != null) {
+            webDriver.quit();
+        }
     }
 
 }

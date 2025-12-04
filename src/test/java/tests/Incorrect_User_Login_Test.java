@@ -74,7 +74,9 @@ public class Incorrect_User_Login_Test {
             Files.copy(screenshot.toPath(), destino.toPath());
             System.out.println("📸 Captura guardada en: " + destino.getAbsolutePath());
         }
-        DriverManager.quitDriver();
+        if (webDriver != null) {
+            webDriver.quit();
+        }
     }
 
 }

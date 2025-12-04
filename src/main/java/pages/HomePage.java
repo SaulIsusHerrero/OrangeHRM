@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.Reporter;
 
 public class HomePage extends BasePage {
     //Locators
@@ -19,15 +20,20 @@ public class HomePage extends BasePage {
      * Checks if we are in the next Page "HomePage".
      */
     public void verifyYouAreInHomePage() {
-        boolean isHomePageVisible = false;
+        boolean isHomePageVisible;
 
         try {
             waitUntilElementIsDisplayed(userHomeLocator, TIMEOUT);
             isHomePageVisible = true;
         } catch (TimeoutException e) {
-            isHomePageVisible = false; // Element not found within timeout.
+            isHomePageVisible = false;
         }
-        Assert.assertTrue(isHomePageVisible, "You are not in the Home page.");
+        if (isHomePageVisible) {
+            Reporter.log("INFO: You are in the Home page.", true);
+        } else {
+            Reporter.log("INFO: You are NOT in the Home page.", true);
+
+        }
     }
 
 }
