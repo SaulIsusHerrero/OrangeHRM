@@ -48,7 +48,7 @@ public class Blank_User_Login_Test {
     * Login in the web without data in userName textfield and correct password.
     */
     @Test(dataProvider = "loginData")
-    public void Blank_User_Login_Test(
+    public void blank_User_Login_Test(
             String Username,
             String password){
         TemporaryDataStore.getInstance().set("testCase", "Blank_User_Login_Test");
@@ -69,10 +69,10 @@ public class Blank_User_Login_Test {
             File screenshot = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
             String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             String testName = result.getName();
-            File destino = new File("screenshots/" + testName + "_" + timestamp + ".png");
-            destino.getParentFile().mkdirs();
-            Files.copy(screenshot.toPath(), destino.toPath());
-            System.out.println("📸 Captura guardada en: " + destino.getAbsolutePath());
+            File destination = new File("screenshots/" + testName + "_" + timestamp + ".png");
+            destination.getParentFile().mkdirs();
+            Files.copy(screenshot.toPath(), destination.toPath());
+            System.out.println("📸 Captura guardada en: " + destination.getAbsolutePath());
         }
         if (webDriver != null) {
             webDriver.quit();

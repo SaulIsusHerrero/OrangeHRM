@@ -11,7 +11,6 @@ public class DriverManager {
     public static WebDriver getDriver(String browser) {
 
         switch (browser.toLowerCase()) {
-
             case "chrome":
                 WebDriverManager.chromedriver().clearDriverCache().setup();
                 return new ChromeDriver();
