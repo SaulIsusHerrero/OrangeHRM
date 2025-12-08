@@ -9,7 +9,7 @@ import java.time.Duration;
 
 public class BasePage {
     //Driver initialization
-    protected WebDriver webDriver; // Protected in order to be used by child classes.
+    protected static WebDriver webDriver; // Protected in order to be used by child classes.
 
     //Constructor with WebDriver as a parameter.
     public BasePage(WebDriver webDriver) {
@@ -26,7 +26,7 @@ public class BasePage {
      * @param locator By with the locator of the element.
      * @param text    String with the text that should be written.
      */
-    public void setElementText(By locator, String text) {
+    public static void setElementText(By locator, String text) {
         webDriver.findElement(locator).sendKeys(text);
     }
 
@@ -35,7 +35,7 @@ public class BasePage {
      *
      * @param locator By with the locator of the element.
      */
-    public void clickElement(By locator) {
+    public static void clickElement(By locator) {
         WebElement element = webDriver.findElement(locator);
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", element);
     }
@@ -45,7 +45,7 @@ public class BasePage {
      *
      * @param locator By with the locator of the element.
      */
-    public void scrollElementIntoView(By locator) {
+    public static void scrollElementIntoView(By locator) {
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) webDriver;
         javascriptExecutor.executeScript("arguments[0].scrollIntoView({block: 'center'});",
                 webDriver.findElement(locator));
@@ -56,7 +56,7 @@ public class BasePage {
      * @param TIMEOUT Duration
      * @param locator By
      */
-    public void waitUntilElementIsDisplayed(By locator, Duration TIMEOUT) {
+    public static void waitUntilElementIsDisplayed(By locator, Duration TIMEOUT) {
         WebDriverWait wait = new WebDriverWait(webDriver, TIMEOUT);
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
@@ -66,6 +66,15 @@ public class BasePage {
      */
     boolean isElementPresent(By locator) {
         return !webDriver.findElements(locator).isEmpty();
+    }
+
+    /**
+     * Returns the text inside a given element locator
+     *
+     * @param locator By with the locator of the element
+     */
+    public static String getElementText(By locator) {
+        return webDriver.findElement(locator).getText();
     }
 
 }

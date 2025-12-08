@@ -19,13 +19,15 @@ import java.util.Date;
 import static pages.BasePage.TIMEOUT;
 
 public class Blank_Password_Login_Test {
-
+    //Variables and Constants
     private WebDriver webDriver;
     private Steps steps;
     private String browser;
 
     // ✅ Constructor added for browser injection
-    public Blank_Password_Login_Test(String browser) { this.browser = browser; }
+    public Blank_Password_Login_Test(String browser) {
+        this.browser = browser;
+    }
 
     @DataProvider(name = "loginData")
     public Object[][] getLoginData() {
@@ -46,10 +48,10 @@ public class Blank_Password_Login_Test {
     * Login on the web without data in password text field and correct username
     */
     @Test(dataProvider = "loginData")
-    public void Blank_Password_Login_Test(String Username, String password){
+    public void blank_Password_Login_Test(String userName, String password){
         TemporaryDataStore.getInstance().set("testCase", "Blank_Password_Login_Test");
         // Reusable blocks (steps)
-        steps.performLogin(Username, password);
+        steps.performLogin(userName, password);
         steps.perfomHomePage();
     }
 
@@ -63,12 +65,14 @@ public class Blank_Password_Login_Test {
             File screenshot = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
             String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             String testName = result.getName();
-            File destino = new File("screenshots/" + testName + "_" + timestamp + ".png");
-            destino.getParentFile().mkdirs();
-            Files.copy(screenshot.toPath(), destino.toPath());
-            System.out.println("📸 Captura guardada en: " + destino.getAbsolutePath());
+            File destination = new File("screenshots/" + testName + "_" + timestamp + ".png");
+            destination.getParentFile().mkdirs();
+            Files.copy(screenshot.toPath(), destination.toPath());
+            System.out.println("📸 Captura guardada en: " + destination.getAbsolutePath());
         }
-        DriverManager.quitDriver();
+        if (webDriver != null) {
+            webDriver.quit();
+        }
     }
 
 }
