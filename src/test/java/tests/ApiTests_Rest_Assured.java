@@ -22,12 +22,12 @@ public class ApiTests_Rest_Assured {
     @Test
     /** POST HTTP method: Create a new POST */
     void testCreatePost() {
-        given()
+        given().log().all()
                 .header("Content-Type", "application/json")
                 .body("{ \"title\": \"foo\", \"body\": \"bar\", \"userId\": 1 }")
                 .when()
                 .post("/posts")
-                .then()
+                .then().log().all()
                 .statusCode(201) // POST normally returns 201 code : created
                 .body("id", notNullValue()) // New resource should have an ID
                 .body("title", equalTo("foo"))
