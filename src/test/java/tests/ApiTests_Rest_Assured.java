@@ -38,10 +38,10 @@ public class ApiTests_Rest_Assured {
     @Test
     /** GET HTTP method: Read a POST */
     void testGetPost() {
-        given()
+        given().log().all()
                 .when()
                 .get("/posts/1")
-                .then()
+                .then().log().all()
                 .statusCode(200) // GET normally returns 200 code : OK
                 // Valid fields returned by /posts/1 on jsonplaceholder:
                 // userId, id, title, body
@@ -54,12 +54,12 @@ public class ApiTests_Rest_Assured {
     @Test
     /** PUT HTTP method: updates completely an existing POST */
     void testUpdatePost() {
-        given()
+        given().log().all()
                 .header("Content-Type", "application/json")
                 .body("{ \"id\": 1, \"title\": \"Updated title\", \"body\": \"Updated Content\", \"userId\": 1 }")
                 .when()
                 .put("/posts/1")
-                .then()
+                .then().log().all()
                 .statusCode(200) // PUT normally returns 200 code : OK
                 .body("id", equalTo(1))
                 .body("title", equalTo("Updated title"))
@@ -70,12 +70,12 @@ public class ApiTests_Rest_Assured {
     @Test
     /** PATCH HTTP method: updates partially an existing POST */
     void testPatchPost() {
-        given()
+        given().log().all()
                 .header("Content-Type", "application/json")
                 .body("{ \"title\": \"Partially updated title\" }") // Only updating the title
                 .when()
                 .patch("/posts/1") // Update the post with ID = 1
-                .then()
+                .then().log().all()
                 .statusCode(200) // PATCH normally returns 200 code : OK
                 .body("id", equalTo(1)) // The ID remains the same
                 .body("title", equalTo("Partially updated title")); // Validate the change
@@ -84,20 +84,20 @@ public class ApiTests_Rest_Assured {
     @Test
     /** DELETE HTTP method: deletes an existing POST */
     void testDeletePost() {
-        given()
+        given().log().all()
                 .when()
                 .delete("/posts/1") // Delete the post with ID = 1
-                .then()
+                .then().log().all()
                 .statusCode(200); // DELETE normally returns 200 code : OK
     }
 
     @Test
     /** Detect an invalid ID */
     void testGetPostInvalidId() {
-        given()
+        given().log().all()
                 .when()
                 .get("/posts/999999") // Using an ID that does not exist
-                .then()
+                .then().log().all()
                 .statusCode(404) // Expecting 404 Not Found
                 .body(equalTo("{}")); // For jsonplaceholder, invalid IDs return an empty object
     }
