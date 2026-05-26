@@ -22,7 +22,7 @@ public class ApiTests_Rest_Assured {
         RestAssured.useRelaxedHTTPSValidation();
 
         /** Establece la URL base global para todas las peticiones de esta clase. Es una URL pública para hacer pruebas de API.
-        Y no hace falta volver a escribir la misma URL en cada uno de los tests*/
+        Y no hace falta volver a escribir la misma URL en cada uno de los tests.*/
         RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
     }
 
