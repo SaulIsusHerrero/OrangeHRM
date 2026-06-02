@@ -4,4 +4,3 @@ tests\Blank_Password_Login_Test.class
 tests\Correct_Login_Test.class
 tests\Incorrect_User_Login_Test.class
 tests\TestFactory.class
-tests\ApiTest_Rest_Assured.class
