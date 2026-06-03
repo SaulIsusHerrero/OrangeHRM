@@ -1,5 +1,10 @@
 package tests;
 
+/** Autor : Saúl Isús Herrero. Fecha : 03 JUNIO 2026.
+ * Entorno : api de testing https://jsonplaceholder.typicode.com
+ */
+
+
 /** Importaciones necesarias de RestAssured, JUnit 5 y Hamcrest para las aserciones (validación).*/
 
 // Herramientas para enviar y validar peticiones HTTP.
