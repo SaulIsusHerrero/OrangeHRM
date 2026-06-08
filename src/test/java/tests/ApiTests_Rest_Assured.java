@@ -23,7 +23,7 @@ public class ApiTests_Rest_Assured {
     // @BeforeAll indica que este metodo se ejecutará una sola vez antes de que comiencen todos los tests de esta clase. Es una configuración global.
     @BeforeAll
     static void beforeAll() {
-        /** Se usa para desactivar la validación estricta de certificados SSL/HTTPS, permitiendo que RestAssured acepte conexiones seguras
+        /** Se usa para desactivar la validación de certificados SSL/HTTPS, permitiendo que RestAssured acepte conexiones seguras
         incluso si el certificado es inválido, autofirmado o no confiable. */
         RestAssured.useRelaxedHTTPSValidation();
 
