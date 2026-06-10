@@ -33,7 +33,7 @@ public class ApiTests_Rest_Assured {
     }
 
     @Test
-    /** POST HTTP metodo: Crea un nuevo POST, es decir, un nuevo registro en Base de Datos */
+    /** POST HTTP metodo: Crea un nuevo POST, es decir, un nuevo registro en BD */
     void testCreatePost() {
         given().log().all() // precondiciones o contexto inicial.
                 .header("Content-Type", "application/json")
