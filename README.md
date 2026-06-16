@@ -17,14 +17,13 @@ E2E Testing and API Testing using REST Assure.
 ## Project Structure
 
 OrangeHRM/
-│
-├── drivers/                # Browser drivers (e.g., ChromeDriver)
-├── resources/              # Configuration files and test data
-├── src/
-│   ├── main/java/          # Core framework (base classes, utilities)
-│   └── test/java/          # Test cases and suites
-│
-├── testng.xml              # Test suite configuration
-├── pom.xml                 # Maven dependencies
-├── test-output.log         # Execution logs
-└── README.md               # Documentation
+drivers/                # Browser drivers (e.g., ChromeDriver)
+resources/              # Configuration files and test data
+src/
+    src/main/java/          # Core framework (base classes, utilities)
+    src/test/java/          # Test cases and suites (E2E Testing and API Testing)
+
+testng.xml              # Test suite configuration
+pom.xml                 # Maven dependencies
+test-output.log         # Execution logs
+README.md               # Documentation
